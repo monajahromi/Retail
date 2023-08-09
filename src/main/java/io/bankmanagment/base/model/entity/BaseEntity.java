@@ -1,4 +1,4 @@
-package io.bankmanagment.retail.base.model.entity;
+package io.bankmanagment.base.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

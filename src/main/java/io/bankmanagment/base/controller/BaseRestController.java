@@ -1,10 +1,10 @@
-package io.bankmanagment.retail.base.controller;
+package io.bankmanagment.base.controller;
 
 
-import io.bankmanagment.retail.base.exception.NotFoundException;
-import io.bankmanagment.retail.base.model.dto.BaseDto;
-import io.bankmanagment.retail.base.model.entity.BaseEntity;
-import io.bankmanagment.retail.base.service.IBaseService;
+import io.bankmanagment.base.model.entity.BaseEntity;
+import io.bankmanagment.base.service.IBaseService;
+import io.bankmanagment.base.exception.NotFoundException;
+import io.bankmanagment.base.model.dto.BaseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

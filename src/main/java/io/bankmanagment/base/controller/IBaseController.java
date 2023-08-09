@@ -1,8 +1,8 @@
-package io.bankmanagment.retail.base.controller;
+package io.bankmanagment.base.controller;
 
 
-import io.bankmanagment.retail.base.exception.NotFoundException;
-import io.bankmanagment.retail.base.model.dto.BaseDto;
+import io.bankmanagment.base.exception.NotFoundException;
+import io.bankmanagment.base.model.dto.BaseDto;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

@@ -1,10 +1,10 @@
-package io.bankmanagment.retail.base.service;
+package io.bankmanagment.base.service;
 
 
 
-import io.bankmanagment.retail.base.exception.NotFoundException;
-import io.bankmanagment.retail.base.model.dto.BaseDto;
-import io.bankmanagment.retail.base.model.entity.BaseEntity;
+import io.bankmanagment.base.model.entity.BaseEntity;
+import io.bankmanagment.base.exception.NotFoundException;
+import io.bankmanagment.base.model.dto.BaseDto;
 
 import java.util.List;
 
