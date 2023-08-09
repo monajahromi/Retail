@@ -27,4 +27,5 @@ public class BaseEntity {
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     protected Date updated_at;
+    protected Boolean deleted = false;
 }
