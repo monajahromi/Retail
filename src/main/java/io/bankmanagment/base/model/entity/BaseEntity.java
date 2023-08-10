@@ -1,4 +1,4 @@
-package io.bankmanagment.retail.base.model.entity;
+package io.bankmanagment.base.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,9 +22,10 @@ public class BaseEntity {
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    private Date created_at;
+    protected Date created_at;
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updated_at;
+    protected Date updated_at;
+    protected Boolean deleted = false;
 }

@@ -1,4 +1,4 @@
-package io.bankmanagment.retail.base.model.dto;
+package io.bankmanagment.base.model.dto;
 
 import lombok.*;
 

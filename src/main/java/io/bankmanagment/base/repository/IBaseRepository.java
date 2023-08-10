@@ -1,4 +1,4 @@
-package io.bankmanagment.retail.base.repository;
+package io.bankmanagment.base.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
