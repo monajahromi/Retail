@@ -15,7 +15,7 @@ public interface IBaseService<T extends BaseEntity, GD extends BaseDto, PD exten
 
     GD create(PD dto);
 
-    GD update(Long id, PD dto) throws NotFoundException;
+    GD update(PD dto) throws NotFoundException;
 
     void deleteById(Long id);
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-public class BaseRestController<T extends BaseEntity, GD extends BaseDto, PD extends BaseDto> implements IBaseController<GD, PD>{
+public class BaseRestController<T extends BaseEntity, GD extends BaseDto, PD extends BaseDto> implements IBaseController<GD, PD> {
     protected IBaseService<T, GD, PD> baseService;
 
     public BaseRestController(IBaseService<T, GD, PD> baseService) {
@@ -39,8 +39,9 @@ public class BaseRestController<T extends BaseEntity, GD extends BaseDto, PD ext
     }
 
     @Override
-    public ResponseEntity<GD> update(PD dto) {
-        return null;
+    @PutMapping
+    public ResponseEntity<GD> update(@RequestBody PD dto) throws NotFoundException {
+       return new ResponseEntity<>(baseService.update(dto), HttpStatus.CREATED);
     }
 
     @Override
