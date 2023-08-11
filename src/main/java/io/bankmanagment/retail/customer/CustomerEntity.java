@@ -20,11 +20,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name="customer")
 public class CustomerEntity extends BaseEntity {
 
-    @NotBlank
+    @NotBlank(message = "Name cannot be blank")
     private String name;
-    @NotBlank
+    @NotBlank(message = "Surname cannot be blank")
     private String surname;
-    @NotBlank
+    @NotBlank(message = "Code cannot be blank")
     @Column(unique = true)
     private String code;
 }
