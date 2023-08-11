@@ -2,6 +2,7 @@ package io.bankmanagment.retail.account;
 
 
 import io.bankmanagment.base.model.entity.BaseEntity;
+import io.bankmanagment.retail.customer.CustomerEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,10 +20,13 @@ import java.math.BigDecimal;
 @Table(name="account")
 public abstract class AccountEntity extends BaseEntity {
 
-    @NotBlank
+    @NotBlank(message = "Number cannot be blank")
     @Column(unique = true)
     private String number;
-    @NotNull
+    @NotNull(message = "Balance cannot be null")
     private BigDecimal balance;
+    @ManyToOne
+    @NotNull(message = "Customer cannot be null")
+    private CustomerEntity customer;
 
 }
