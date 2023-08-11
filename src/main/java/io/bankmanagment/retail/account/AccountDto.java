@@ -1,9 +1,9 @@
 package io.bankmanagment.retail.account;
 
 import io.bankmanagment.base.model.dto.BaseDto;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 

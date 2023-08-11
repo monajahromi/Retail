@@ -1,7 +1,6 @@
 package io.bankmanagment.retail.account.current;
 
 import io.bankmanagment.retail.account.AccountEntity;
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Table;
