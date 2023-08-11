@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 @EntityListeners(AuditingEntityListener.class)
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="account")
-public abstract class AccountEntity extends BaseEntity {
+public class AccountEntity extends BaseEntity {
 
     @NotBlank(message = "Number cannot be blank")
     @Column(unique = true)

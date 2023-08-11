@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/account/current")
+@RequestMapping("/accounts/current")
 public class CurrentAccountController extends BaseRestController<CurrentAccountEntity, CurrentAccountDto,CurrentAccountDto> {
 
     public CurrentAccountController(IBaseService<CurrentAccountEntity, CurrentAccountDto, CurrentAccountDto> baseService) {
