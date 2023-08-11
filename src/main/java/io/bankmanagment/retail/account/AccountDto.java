@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public abstract class AccountDto extends BaseDto {
+public class AccountDto extends BaseDto {
 
     @NotBlank(message = "Number cannot be blank")
     private String number;
