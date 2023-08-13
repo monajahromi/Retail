@@ -16,7 +16,10 @@ public class AccountDto extends BaseDto {
     @NotBlank(message = "Number cannot be blank")
     private String number;
     private BigDecimal balance;
+    @NotNull(message = "balanceFloor cannot be null")
+    private BigDecimal balanceFloor;
     @NotNull(message = "Customer cannot be blank")
     private CustomerDto customer;
+
 
 }

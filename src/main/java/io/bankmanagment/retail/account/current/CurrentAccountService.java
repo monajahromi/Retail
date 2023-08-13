@@ -32,6 +32,7 @@ public class CurrentAccountService extends AccountService<CurrentAccountEntity, 
         }
         currentAccountDto.setCustomer(customerDto);
         currentAccountDto.setBalance(currentAccountProperties.getInitialBalance());
+        currentAccountDto.setBalanceFloor(currentAccountProperties.getInitialBalanceFloor());
         currentAccountDto.setChequeBookAvailable(currentAccountProperties.getOpenWithChequeBook());
 
         return super.create(currentAccountDto);

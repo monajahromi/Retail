@@ -25,6 +25,8 @@ public class AccountEntity extends BaseEntity {
     private String number;
     @NotNull(message = "Balance cannot be null")
     private BigDecimal balance;
+    @NotNull(message = "balanceFloor cannot be null")
+    private BigDecimal balanceFloor;
     @ManyToOne
     @NotNull(message = "Customer cannot be null")
     private CustomerEntity customer;

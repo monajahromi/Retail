@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 public class CurrentAccountProperties {
 
   private BigDecimal initialBalance = BigDecimal.valueOf(0);
+  private BigDecimal initialBalanceFloor = BigDecimal.valueOf(0);
   private Boolean openWithChequeBook = false;
 
 
