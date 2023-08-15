@@ -6,6 +6,6 @@ import org.mapstruct.Mapper;
 
 
 @Mapper(componentModel = "spring",builder = @Builder(disableBuilder = true))
-public interface CustomerMapper extends IBaseMapper<CustomerEntity, CustomerDto, CustomerDto> {
+public interface CustomerMapper extends IBaseMapper<CustomerEntity, CustomerResponseDto, CustomerRequestDto> {
 
 }

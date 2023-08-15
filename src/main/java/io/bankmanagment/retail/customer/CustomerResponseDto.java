@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CustomerDto extends BaseDto {
+public class CustomerResponseDto extends BaseDto {
 
     @NotBlank(message = "Name cannot be blank")
     private String name;
