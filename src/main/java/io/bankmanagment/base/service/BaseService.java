@@ -16,8 +16,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class BaseService<T extends BaseEntity, GD extends BaseDto, PD extends BaseDto> implements IBaseService<T, GD, PD> {
-    public IBaseRepository<T> baseRepository;
-    public IBaseMapper<T, GD, PD> baseMapper;
+    protected IBaseRepository<T> baseRepository;
+    protected IBaseMapper<T, GD, PD> baseMapper;
 
     public BaseService(IBaseRepository<T> baseRepository, IBaseMapper<T, GD, PD> baseMapper) {
         this.baseRepository = baseRepository;
