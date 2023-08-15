@@ -26,6 +26,7 @@ public class TransactionEntity extends BaseEntity {
 
     @ManyToOne
     @NotNull(message = "Account cannot be null")
+    @ToString.Exclude
     private AccountEntity account;
 
     @NotNull(message = "Operation type cannot be null")
