@@ -10,6 +10,7 @@ import io.bankmanagment.retail.transaction.TransactionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +27,11 @@ public class CustomerService extends BaseService<CustomerEntity, CustomerRespons
         this.transactionRepository = transactionRepository;
     }
 
+    @Override
+    public CustomerResponseDto create(CustomerRequestDto dto) {
+        dto.setCode(generateUniqueCode());
+        return super.create(dto);
+    }
 
     public CustomerResponseDto getDetailsById(Long id) throws NotFoundException {
         CustomerEntity customerEntity  = baseRepository.findById(id).orElseThrow(NotFoundException::new);
@@ -45,5 +51,12 @@ public class CustomerService extends BaseService<CustomerEntity, CustomerRespons
 
 
         return customerDto;
+    }
+
+
+
+    private  String generateUniqueCode() {
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        return uuid.substring(0, 12).toUpperCase();
     }
 }
