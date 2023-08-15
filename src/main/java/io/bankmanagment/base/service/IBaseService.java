@@ -7,14 +7,14 @@ import io.bankmanagment.base.model.entity.BaseEntity;
 
 import java.util.List;
 
-public interface IBaseService<T extends BaseEntity, GD extends BaseDto, PD extends BaseDto> {
-    GD findById(Long id) throws NotFoundException;
+public interface IBaseService<T extends BaseEntity, RespDto extends BaseDto, ReqDto extends BaseDto> {
+    RespDto findById(Long id) throws NotFoundException;
 
-    List<GD> findAll();
+    List<RespDto> findAll();
 
-    GD create(PD dto);
+    RespDto create(ReqDto dto);
 
-    GD update(PD dto) throws NotFoundException;
+    RespDto update(ReqDto dto) throws NotFoundException;
 
     void deleteById(Long id);
 }
