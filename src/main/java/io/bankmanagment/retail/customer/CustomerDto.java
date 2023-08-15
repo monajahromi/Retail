@@ -1,8 +1,11 @@
 package io.bankmanagment.retail.customer;
 
 import io.bankmanagment.base.model.dto.BaseDto;
+import io.bankmanagment.retail.account.AccountDto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -17,4 +20,5 @@ public class CustomerDto extends BaseDto {
     private String surname;
     @NotBlank(message = "Code cannot be blank")
     private String code;
+    private List<AccountDto> accounts;
 }
