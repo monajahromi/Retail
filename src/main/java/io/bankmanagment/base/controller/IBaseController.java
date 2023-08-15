@@ -12,5 +12,5 @@ public interface IBaseController<RespDto extends BaseDto, ReqDto extends BaseDto
     ResponseEntity<List<RespDto>> findAll();
     ResponseEntity<RespDto> create(ReqDto dto);
     ResponseEntity<RespDto> update(ReqDto dto) throws NotFoundException;
-    ResponseEntity<Void> deleteById(Long id);
+    ResponseEntity<Void> deleteById(Long id) throws NotFoundException;
 }

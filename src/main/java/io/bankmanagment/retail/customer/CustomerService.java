@@ -34,7 +34,7 @@ public class CustomerService extends BaseService<CustomerEntity, CustomerRespons
     }
 
     public CustomerResponseDto getDetailsById(Long id) throws NotFoundException {
-        CustomerEntity customerEntity  = baseRepository.findById(id).orElseThrow(NotFoundException::new);
+        CustomerEntity customerEntity  = baseRepository.findById(id).orElseThrow(() -> new NotFoundException("Customer with ID " + id + " not found"));
 
 
         List<AccountEntity> accountEntities = accountRepository.findByCustomer(customerEntity) ;

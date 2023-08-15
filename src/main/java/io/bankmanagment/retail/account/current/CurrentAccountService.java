@@ -43,7 +43,9 @@ public class CurrentAccountService extends AccountService<CurrentAccountEntity, 
         try {
             customer = customerService.findById(currentAccountRequestDto.getCustomerID());
         } catch (NotFoundException e) {
-            throw new RuntimeException(e);
+            RuntimeException runtimeException = new RuntimeException();
+            runtimeException.initCause(e);
+            throw runtimeException;
         }
         CustomerRequestDto customerRequestDto = new CustomerRequestDto();
         customerRequestDto.setId(currentAccountRequestDto.getCustomerID());
@@ -55,25 +57,24 @@ public class CurrentAccountService extends AccountService<CurrentAccountEntity, 
         currentAccountRequestDto.setChequeBookAvailable(currentAccountProperties.getOpenWithChequeBook());
 
         CurrentAccountResponseDto created = super.create(currentAccountRequestDto);
-
-
-        try {
-            return deposit(currentAccountMapper.responseToRequest(created), currentAccountRequestDto.getInitialCredit());
-        } catch (NotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
+        return deposit(currentAccountMapper.responseToRequest(created), currentAccountRequestDto.getInitialCredit());
 
     }
 
-
-    public CurrentAccountResponseDto deposit(CurrentAccountRequestDto currentAccountRequestDto, BigDecimal amount) throws NotFoundException {
+    public CurrentAccountResponseDto deposit(CurrentAccountRequestDto currentAccountRequestDto, BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Amount cannot be negative for deposit");
         }
 
         currentAccountRequestDto.setBalance(currentAccountRequestDto.getBalance().add(amount));
-        CurrentAccountResponseDto updated = super.update(currentAccountRequestDto);
+        CurrentAccountResponseDto updated = null;
+        try {
+            updated = super.update(currentAccountRequestDto);
+        } catch (NotFoundException e) {
+            RuntimeException runtimeException = new RuntimeException();
+            runtimeException.initCause(e);
+            throw runtimeException;
+        }
         TransactionRequestDto t = TransactionRequestDto.builder()
                 .account(updated)
                 .amount(amount)
@@ -85,14 +86,19 @@ public class CurrentAccountService extends AccountService<CurrentAccountEntity, 
     }
 
 
-    public CurrentAccountResponseDto withdraw(CurrentAccountRequestDto currentAccountRequestDto, BigDecimal amount) throws NotFoundException {
+    public CurrentAccountResponseDto withdraw(CurrentAccountRequestDto currentAccountRequestDto, BigDecimal amount) {
 
         BigDecimal newBalance = currentAccountRequestDto.getBalance().subtract(amount);
         if (newBalance.compareTo(currentAccountRequestDto.getBalanceFloor()) < 0) {
-            throw new RuntimeException("Insufficient balance for withdrawal");
+            throw new IllegalArgumentException("Insufficient balance for withdrawal");
         }
         currentAccountRequestDto.setBalance(newBalance);
-        CurrentAccountResponseDto updated = super.update(currentAccountRequestDto);
+        CurrentAccountResponseDto updated = null;
+        try {
+            updated = super.update(currentAccountRequestDto);
+        } catch (NotFoundException e) {
+            throw new RuntimeException(e);
+        }
         TransactionRequestDto t = TransactionRequestDto.builder()
                 .account(updated)
                 .amount(amount)
