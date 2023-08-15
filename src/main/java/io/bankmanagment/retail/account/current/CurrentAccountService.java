@@ -15,14 +15,14 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 
 @Service
-public class CurrentAccountService extends AccountService<CurrentAccountEntity, CurrentAccountDto, CurrentAccountDto> {
+public class CurrentAccountService extends AccountService<CurrentAccountEntity, CurrentAccountResponseDto, CurrentAccountRequestDto> {
 
 
     private final CurrentAccountProperties currentAccountProperties;
     private final CustomerRepository customerRepository;
     private final TransactionRepository transactionRepository;
 
-    public CurrentAccountService(IBaseRepository<CurrentAccountEntity> baseRepository, IBaseMapper<CurrentAccountEntity, CurrentAccountDto, CurrentAccountDto> baseMapper, CurrentAccountProperties currentAccountProperties, CustomerRepository customerRepository, TransactionRepository transactionRepository) {
+    public CurrentAccountService(IBaseRepository<CurrentAccountEntity> baseRepository, IBaseMapper<CurrentAccountEntity, CurrentAccountResponseDto, CurrentAccountRequestDto> baseMapper, CurrentAccountProperties currentAccountProperties, CustomerRepository customerRepository, TransactionRepository transactionRepository) {
         super(baseRepository, baseMapper);
         this.currentAccountProperties = currentAccountProperties;
         this.customerRepository = customerRepository;
@@ -31,7 +31,7 @@ public class CurrentAccountService extends AccountService<CurrentAccountEntity, 
     }
 
 
-    public CurrentAccountDto createWithInitialCredit(CreateAccountRequestDto requestDto) throws NotFoundException {
+    public CurrentAccountResponseDto createWithInitialCredit(CurrentAccountRequestDto requestDto) throws NotFoundException {
        CustomerEntity customerEntity = customerRepository
                      .findById(requestDto.getCustomerID()).orElseThrow(NotFoundException::new);
 

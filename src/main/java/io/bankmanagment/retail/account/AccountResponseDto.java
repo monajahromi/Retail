@@ -10,7 +10,7 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class AccountDto extends BaseDto {
+public class AccountResponseDto extends BaseDto {
 
     private String number;
     private BigDecimal balance;

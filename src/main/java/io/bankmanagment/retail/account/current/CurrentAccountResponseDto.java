@@ -1,6 +1,6 @@
 package io.bankmanagment.retail.account.current;
 
-import io.bankmanagment.retail.account.AccountDto;
+import io.bankmanagment.retail.account.AccountResponseDto;
 import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
@@ -8,6 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CurrentAccountDto extends AccountDto {
+public class CurrentAccountResponseDto extends AccountResponseDto {
     private Boolean chequeBookAvailable;
 }

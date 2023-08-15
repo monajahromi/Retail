@@ -1,7 +1,7 @@
 package io.bankmanagment.retail.customer;
 
 import io.bankmanagment.base.model.dto.BaseDto;
-import io.bankmanagment.retail.account.AccountDto;
+import io.bankmanagment.retail.account.AccountResponseDto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CustomerDto extends BaseDto {
+public class CustomerResponseDto extends BaseDto {
 
     @NotBlank(message = "Name cannot be blank")
     private String name;
@@ -20,5 +20,5 @@ public class CustomerDto extends BaseDto {
     private String surname;
     @NotBlank(message = "Code cannot be blank")
     private String code;
-    private List<AccountDto> accounts;
+    private List<AccountResponseDto> accounts;
 }

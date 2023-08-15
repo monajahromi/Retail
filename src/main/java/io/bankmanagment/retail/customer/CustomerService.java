@@ -13,13 +13,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CustomerService extends BaseService<CustomerEntity, CustomerDto, CustomerDto> {
+public class CustomerService extends BaseService<CustomerEntity, CustomerResponseDto, CustomerRequestDto> {
 
     private final CustomerRepository customerRepository;
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
 
-    public CustomerService(IBaseRepository<CustomerEntity> baseRepository, IBaseMapper<CustomerEntity, CustomerDto, CustomerDto> baseMapper, CustomerRepository customerRepository, AccountRepository accountRepository, TransactionRepository transactionRepository) {
+    public CustomerService(IBaseRepository<CustomerEntity> baseRepository, IBaseMapper<CustomerEntity, CustomerResponseDto, CustomerRequestDto> baseMapper, CustomerRepository customerRepository, AccountRepository accountRepository, TransactionRepository transactionRepository) {
         super(baseRepository, baseMapper);
         this.customerRepository = customerRepository;
         this.accountRepository = accountRepository;
@@ -27,7 +27,7 @@ public class CustomerService extends BaseService<CustomerEntity, CustomerDto, Cu
     }
 
 
-    public CustomerDto getDetailsById(Long id) throws NotFoundException {
+    public CustomerResponseDto getDetailsById(Long id) throws NotFoundException {
         CustomerEntity customerEntity  = baseRepository.findById(id).orElseThrow(NotFoundException::new);
 
 
@@ -41,7 +41,7 @@ public class CustomerService extends BaseService<CustomerEntity, CustomerDto, Cu
         }).collect(Collectors.toList());
 
         customerEntity.setAccounts(accountWithTransactions);
-        CustomerDto customerDto = baseMapper.entityToRespDto(customerEntity);
+        CustomerResponseDto customerDto = baseMapper.entityToRespDto(customerEntity);
 
 
         return customerDto;
