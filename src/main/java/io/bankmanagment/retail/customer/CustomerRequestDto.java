@@ -19,4 +19,6 @@ public class CustomerRequestDto extends BaseDto {
     @JsonIgnore
     private String code;
 
+
+
 }

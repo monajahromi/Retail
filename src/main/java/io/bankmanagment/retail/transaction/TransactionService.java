@@ -6,10 +6,10 @@ import io.bankmanagment.base.service.BaseService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TransactionService extends BaseService<TransactionEntity, TransactionDto, TransactionDto> {
+public class TransactionService extends BaseService<TransactionEntity, TransactionResponseDto, TransactionRequestDto> {
 
 
-    public TransactionService(IBaseRepository<TransactionEntity> baseRepository, IBaseMapper<TransactionEntity, TransactionDto, TransactionDto> baseMapper) {
+    public TransactionService(IBaseRepository<TransactionEntity> baseRepository, IBaseMapper<TransactionEntity, TransactionResponseDto, TransactionRequestDto> baseMapper) {
         super(baseRepository, baseMapper);
     }
 }

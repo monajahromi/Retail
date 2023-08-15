@@ -6,89 +6,100 @@ import io.bankmanagment.base.repository.IBaseRepository;
 import io.bankmanagment.retail.account.AccountService;
 import io.bankmanagment.retail.config.CurrentAccountProperties;
 import io.bankmanagment.retail.constants.TransactionOperationType;
-import io.bankmanagment.retail.customer.CustomerEntity;
-import io.bankmanagment.retail.customer.CustomerRepository;
-import io.bankmanagment.retail.transaction.TransactionEntity;
+import io.bankmanagment.retail.customer.CustomerRequestDto;
+import io.bankmanagment.retail.customer.CustomerResponseDto;
+import io.bankmanagment.retail.customer.CustomerService;
 import io.bankmanagment.retail.transaction.TransactionRepository;
+import io.bankmanagment.retail.transaction.TransactionRequestDto;
+import io.bankmanagment.retail.transaction.TransactionService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
 @Service
+@Transactional
 public class CurrentAccountService extends AccountService<CurrentAccountEntity, CurrentAccountResponseDto, CurrentAccountRequestDto> {
 
 
     private final CurrentAccountProperties currentAccountProperties;
-    private final CustomerRepository customerRepository;
     private final TransactionRepository transactionRepository;
+    private final CustomerService customerService;
+    private final TransactionService transactionService;
+    private final CurrentAccountMapper currentAccountMapper;
 
-    public CurrentAccountService(IBaseRepository<CurrentAccountEntity> baseRepository, IBaseMapper<CurrentAccountEntity, CurrentAccountResponseDto, CurrentAccountRequestDto> baseMapper, CurrentAccountProperties currentAccountProperties, CustomerRepository customerRepository, TransactionRepository transactionRepository) {
+    public CurrentAccountService(IBaseRepository<CurrentAccountEntity> baseRepository, IBaseMapper<CurrentAccountEntity, CurrentAccountResponseDto, CurrentAccountRequestDto> baseMapper, CurrentAccountProperties currentAccountProperties, TransactionRepository transactionRepository, CustomerService customerService, TransactionService transactionService, CurrentAccountMapper currentAccountMapper) {
         super(baseRepository, baseMapper);
         this.currentAccountProperties = currentAccountProperties;
-        this.customerRepository = customerRepository;
         this.transactionRepository = transactionRepository;
-
+        this.customerService = customerService;
+        this.transactionService = transactionService;
+        this.currentAccountMapper = currentAccountMapper;
     }
 
-
-    public CurrentAccountResponseDto createWithInitialCredit(CurrentAccountRequestDto requestDto) throws NotFoundException {
-       CustomerEntity customerEntity = customerRepository
-                     .findById(requestDto.getCustomerID()).orElseThrow(NotFoundException::new);
-
-
-        CurrentAccountEntity entity = new CurrentAccountEntity();
-        entity.setCustomer(customerEntity);
-        entity.setNumber(accountNumberGenerator(customerEntity.getCode()));
-        entity.setBalance(currentAccountProperties.getInitialBalance());
-        entity.setBalanceFloor(currentAccountProperties.getInitialBalanceFloor());
-        entity.setChequeBookAvailable(currentAccountProperties.getOpenWithChequeBook());
-        CurrentAccountEntity created = baseRepository.save(entity);
+    @Override
+    public CurrentAccountResponseDto create(CurrentAccountRequestDto currentAccountRequestDto) {
+        CustomerResponseDto customer = null;
         try {
-            deposit(created, requestDto.getInitialCredit());
+            customer = customerService.findById(currentAccountRequestDto.getCustomerID());
         } catch (NotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        CustomerRequestDto customerRequestDto = new CustomerRequestDto();
+        customerRequestDto.setId(currentAccountRequestDto.getCustomerID());
+
+        currentAccountRequestDto.setCustomer(customerRequestDto);
+        currentAccountRequestDto.setNumber(accountNumberGenerator(customer.getCode()));
+        currentAccountRequestDto.setBalance(currentAccountProperties.getInitialBalance());
+        currentAccountRequestDto.setBalanceFloor(currentAccountProperties.getInitialBalanceFloor());
+        currentAccountRequestDto.setChequeBookAvailable(currentAccountProperties.getOpenWithChequeBook());
+
+        CurrentAccountResponseDto created = super.create(currentAccountRequestDto);
+
+
+        try {
+            return deposit(currentAccountMapper.responseToRequest(created), currentAccountRequestDto.getInitialCredit());
+        } catch (NotFoundException e) {
+            throw new RuntimeException(e);
         }
 
 
-        return baseMapper.entityToRespDto(created);
-
     }
 
-    public CurrentAccountEntity deposit(CurrentAccountEntity currentAccountEntity, BigDecimal amount) throws NotFoundException {
+
+    public CurrentAccountResponseDto deposit(CurrentAccountRequestDto currentAccountRequestDto, BigDecimal amount) throws NotFoundException {
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Amount cannot be negative for deposit");
         }
 
-        currentAccountEntity.setBalance(currentAccountEntity.getBalance().add(amount));
-        CurrentAccountEntity updated = baseRepository.save(currentAccountEntity);
-        TransactionEntity transactionEntity = TransactionEntity.builder()
+        currentAccountRequestDto.setBalance(currentAccountRequestDto.getBalance().add(amount));
+        CurrentAccountResponseDto updated = super.update(currentAccountRequestDto);
+        TransactionRequestDto t = TransactionRequestDto.builder()
                 .account(updated)
                 .amount(amount)
                 .operationType(TransactionOperationType.DEPOSIT)
                 .build();
 
-        transactionRepository.save(transactionEntity);
+        transactionService.create(t);
         return updated;
     }
 
 
-    public CurrentAccountEntity withdraw(CurrentAccountEntity currentAccountEntity, BigDecimal amount) throws NotFoundException {
+    public CurrentAccountResponseDto withdraw(CurrentAccountRequestDto currentAccountRequestDto, BigDecimal amount) throws NotFoundException {
 
-        BigDecimal newBalance = currentAccountEntity.getBalance().subtract(amount);
-        if (newBalance.compareTo(currentAccountEntity.getBalanceFloor()) < 0) {
+        BigDecimal newBalance = currentAccountRequestDto.getBalance().subtract(amount);
+        if (newBalance.compareTo(currentAccountRequestDto.getBalanceFloor()) < 0) {
             throw new RuntimeException("Insufficient balance for withdrawal");
         }
-        currentAccountEntity.setBalance(newBalance);
-        CurrentAccountEntity updated = baseRepository.save(currentAccountEntity);
-
-
-        TransactionEntity transactionEntity = TransactionEntity.builder()
+        currentAccountRequestDto.setBalance(newBalance);
+        CurrentAccountResponseDto updated = super.update(currentAccountRequestDto);
+        TransactionRequestDto t = TransactionRequestDto.builder()
                 .account(updated)
                 .amount(amount)
                 .operationType(TransactionOperationType.WITHDRAWAL)
                 .build();
 
-        transactionRepository.save(transactionEntity);
+        transactionService.create(t);
         return updated;
     }
 
