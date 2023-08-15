@@ -3,10 +3,8 @@ package io.bankmanagment.retail.transaction;
 
 import io.bankmanagment.base.model.entity.BaseEntity;
 import io.bankmanagment.retail.account.AccountEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import io.bankmanagment.retail.constants.TransactionOperationType;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,13 +18,19 @@ import java.math.BigDecimal;
 @Entity
 @Builder
 @EntityListeners(AuditingEntityListener.class)
-@Table(name="transaction")
+@Table(name = "transaction")
 public class TransactionEntity extends BaseEntity {
 
     @NotNull(message = "Amount cannot be null")
     private BigDecimal amount;
+
     @ManyToOne
     @NotNull(message = "Account cannot be null")
+    @ToString.Exclude
     private AccountEntity account;
+
+    @NotNull(message = "Operation type cannot be null")
+    @Enumerated(EnumType.STRING)
+    private TransactionOperationType operationType;
 
 }

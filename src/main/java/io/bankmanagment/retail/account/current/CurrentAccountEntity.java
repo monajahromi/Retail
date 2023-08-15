@@ -15,6 +15,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Builder
 @EntityListeners(AuditingEntityListener.class)
 @Table(name="current_account")
+@ToString(callSuper = true)
 public class CurrentAccountEntity extends AccountEntity {
 
     private Boolean chequeBookAvailable;

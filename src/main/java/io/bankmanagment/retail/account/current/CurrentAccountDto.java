@@ -9,7 +9,5 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class CurrentAccountDto extends AccountDto {
-
     private Boolean chequeBookAvailable;
-
 }
