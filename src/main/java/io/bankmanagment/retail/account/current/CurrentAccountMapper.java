@@ -6,6 +6,6 @@ import org.mapstruct.Mapper;
 
 
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
-public interface CurrentAccountMapper extends AccountMapper<CurrentAccountEntity, CurrentAccountDto, CurrentAccountDto> {
+public interface CurrentAccountMapper extends AccountMapper<CurrentAccountEntity, CurrentAccountResponseDto, CurrentAccountRequestDto> {
 
 }

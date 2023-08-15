@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/accounts/current")
-public class CurrentAccountController extends BaseRestController<CurrentAccountEntity, CurrentAccountDto, CurrentAccountDto> {
+public class CurrentAccountController extends BaseRestController<CurrentAccountEntity, CurrentAccountResponseDto, CurrentAccountRequestDto> {
 
     private final CurrentAccountService currentAccountService;
 
-    public CurrentAccountController(IBaseService<CurrentAccountEntity, CurrentAccountDto, CurrentAccountDto> baseService, CurrentAccountService currentAccountService) {
+    public CurrentAccountController(IBaseService<CurrentAccountEntity, CurrentAccountResponseDto, CurrentAccountRequestDto> baseService, CurrentAccountService currentAccountService) {
         super(baseService);
         this.currentAccountService = currentAccountService;
     }
 
     @PostMapping("/initialcredit")
-    public void createCurrentAccount(@RequestBody CreateAccountRequestDto requestDto) throws NotFoundException {
+    public void createCurrentAccount(@RequestBody CurrentAccountRequestDto requestDto) throws NotFoundException {
         currentAccountService.createWithInitialCredit(requestDto) ;
     }
 }

@@ -1,11 +1,12 @@
 package io.bankmanagment.retail.account.current;
 
-import lombok.*;
+import io.bankmanagment.retail.account.AccountDto;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
-public class CreateAccountRequestDto{
+public class CurrentAccountRequestDto extends AccountDto {
 
     private Long customerID;
     private BigDecimal initialCredit;

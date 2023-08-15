@@ -8,6 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CurrentAccountDto extends AccountDto {
+public class CurrentAccountResponseDto extends AccountDto {
     private Boolean chequeBookAvailable;
 }
