@@ -13,34 +13,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-public class BaseRestController<T extends BaseEntity, GD extends BaseDto, PD extends BaseDto> implements IBaseController<GD, PD> {
-    protected IBaseService<T, GD, PD> baseService;
+public class BaseRestController<E extends BaseEntity, RespDto extends BaseDto, ReqDto extends BaseDto> implements IBaseController<RespDto, ReqDto> {
+    protected IBaseService<E, RespDto, ReqDto> baseService;
 
-    public BaseRestController(IBaseService<T, GD, PD> baseService) {
+    public BaseRestController(IBaseService<E, RespDto, ReqDto> baseService) {
         this.baseService = baseService;
     }
 
     @Override
     @GetMapping("{id}")
-    public ResponseEntity<GD> findBydId(@PathVariable(name = "id") Long id) throws NotFoundException {
+    public ResponseEntity<RespDto> findBydId(@PathVariable(name = "id") Long id) throws NotFoundException {
         return new ResponseEntity<>(baseService.findById(id), HttpStatus.OK);
     }
 
     @Override
     @GetMapping
-    public ResponseEntity<List<GD>> findAll() {
+    public ResponseEntity<List<RespDto>> findAll() {
         return new ResponseEntity<>(baseService.findAll(), HttpStatus.OK);
     }
 
     @Override
     @PostMapping
-    public ResponseEntity<GD> create(@RequestBody @Valid PD dto) {
+    public ResponseEntity<RespDto> create(@RequestBody @Valid ReqDto dto) {
         return new ResponseEntity<>(baseService.create(dto), HttpStatus.CREATED);
     }
 
     @Override
     @PutMapping
-    public ResponseEntity<GD> update(@RequestBody PD dto) throws NotFoundException {
+    public ResponseEntity<RespDto> update(@RequestBody ReqDto dto) throws NotFoundException {
        return new ResponseEntity<>(baseService.update(dto), HttpStatus.CREATED);
     }
 

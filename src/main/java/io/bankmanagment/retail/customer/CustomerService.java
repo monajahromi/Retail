@@ -27,14 +27,6 @@ public class CustomerService extends BaseService<CustomerEntity, CustomerDto, Cu
     }
 
 
-    @Override
-    public List<CustomerDto> findAll() {
-        List<CustomerEntity> cs = baseRepository.findAll();
-        System.out.println("cs-------------------: " + cs);
-        return cs.stream().map(baseMapper::entityToGetDto).collect(Collectors.toList());
-        //return super.findAll();
-    }
-
     public CustomerDto getDetailsById(Long id) throws NotFoundException {
         CustomerEntity customerEntity  = baseRepository.findById(id).orElseThrow(NotFoundException::new);
 
@@ -48,13 +40,8 @@ public class CustomerService extends BaseService<CustomerEntity, CustomerDto, Cu
 
         }).collect(Collectors.toList());
 
-//        System.out.println("customerEntity: " + customerEntity);
-//        List<AccountEntity> accountEntities = customerEntity.getAccounts().stream().map(item ->
-//                accountRepository.findByIdWithTransactions(item.getId())
-//        ).collect(Collectors.toList());
-
         customerEntity.setAccounts(accountWithTransactions);
-        CustomerDto customerDto = baseMapper.entityToGetDto(customerEntity);
+        CustomerDto customerDto = baseMapper.entityToRespDto(customerEntity);
 
 
         return customerDto;

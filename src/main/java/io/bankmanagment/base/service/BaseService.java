@@ -15,33 +15,33 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class BaseService<T extends BaseEntity, GD extends BaseDto, PD extends BaseDto> implements IBaseService<T, GD, PD> {
-    public IBaseRepository<T> baseRepository;
-    public IBaseMapper<T, GD, PD> baseMapper;
+public class BaseService<E extends BaseEntity, RespDto extends BaseDto, ReqDto extends BaseDto> implements IBaseService<E, RespDto, ReqDto> {
+    protected IBaseRepository<E> baseRepository;
+    protected IBaseMapper<E, RespDto, ReqDto> baseMapper;
 
-    public BaseService(IBaseRepository<T> baseRepository, IBaseMapper<T, GD, PD> baseMapper) {
+    public BaseService(IBaseRepository<E> baseRepository, IBaseMapper<E, RespDto, ReqDto> baseMapper) {
         this.baseRepository = baseRepository;
         this.baseMapper = baseMapper;
     }
 
-    public GD findById(Long id) throws NotFoundException {
-        T entity = baseRepository.findById(id).orElseThrow(NotFoundException::new);
-        return baseMapper.entityToGetDto(entity);
+    public RespDto findById(Long id) throws NotFoundException {
+        E entity = baseRepository.findById(id).orElseThrow(NotFoundException::new);
+        return baseMapper.entityToRespDto(entity);
     }
 
-    public List<GD> findAll() {
-        return baseRepository.findAll().stream().map(baseMapper::entityToGetDto).collect(Collectors.toList());
+    public List<RespDto> findAll() {
+        return baseRepository.findAll().stream().map(baseMapper::entityToRespDto).collect(Collectors.toList());
     }
 
-    public GD create(PD dto) {
-        T entity = baseMapper.postDtoToEntity(dto);
-        return baseMapper.entityToGetDto(baseRepository.save(entity));
+    public RespDto create(ReqDto dto) {
+        E entity = baseMapper.reqDtoToEntity(dto);
+        return baseMapper.entityToRespDto(baseRepository.save(entity));
     }
 
-    public GD update(PD dto) throws NotFoundException {
-        T saved = baseRepository.findById(dto.getId()).orElseThrow(NotFoundException::new);
+    public RespDto update(ReqDto dto) throws NotFoundException {
+        E saved = baseRepository.findById(dto.getId()).orElseThrow(NotFoundException::new);
         copyNonNullProperties(dto, saved);
-        return baseMapper.entityToGetDto(baseRepository.save(saved));
+        return baseMapper.entityToRespDto(baseRepository.save(saved));
     }
 
     public void deleteById(Long id) {
