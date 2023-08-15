@@ -25,7 +25,7 @@ public class BaseService<E extends BaseEntity, RespDto extends BaseDto, ReqDto e
     }
 
     public RespDto findById(Long id) throws NotFoundException {
-        E entity = baseRepository.findById(id).orElseThrow(NotFoundException::new);
+        E entity = baseRepository.findById(id).orElseThrow(() -> new NotFoundException("Entity with ID " + id + " not found"));
         return baseMapper.entityToRespDto(entity);
     }
 
@@ -39,12 +39,13 @@ public class BaseService<E extends BaseEntity, RespDto extends BaseDto, ReqDto e
     }
 
     public RespDto update(ReqDto dto) throws NotFoundException {
-        E saved = baseRepository.findById(dto.getId()).orElseThrow(NotFoundException::new);
+        E saved = baseRepository.findById(dto.getId()).orElseThrow(() -> new NotFoundException("Entity with ID " + dto.getId() + " not found"));
         copyNonNullProperties(dto, saved);
         return baseMapper.entityToRespDto(baseRepository.save(saved));
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Long id) throws NotFoundException {
+        baseRepository.findById(id).orElseThrow(() -> new NotFoundException("Entity with ID " + id + " not found"));
         baseRepository.deleteById(id);
     }
 

@@ -16,5 +16,5 @@ public interface IBaseService<T extends BaseEntity, RespDto extends BaseDto, Req
 
     RespDto update(ReqDto dto) throws NotFoundException;
 
-    void deleteById(Long id);
+    void deleteById(Long id) throws NotFoundException;
 }

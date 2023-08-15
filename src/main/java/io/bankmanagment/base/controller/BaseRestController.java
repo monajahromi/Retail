@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-public class BaseRestController<E extends BaseEntity, RespDto extends BaseDto, ReqDto extends BaseDto> implements IBaseController<RespDto, ReqDto> {
+public class BaseRestController<E extends BaseEntity, RespDto extends BaseDto, ReqDto extends BaseDto>
+        implements IBaseController<RespDto, ReqDto> {
     protected IBaseService<E, RespDto, ReqDto> baseService;
 
     public BaseRestController(IBaseService<E, RespDto, ReqDto> baseService) {
@@ -41,12 +42,12 @@ public class BaseRestController<E extends BaseEntity, RespDto extends BaseDto, R
     @Override
     @PutMapping
     public ResponseEntity<RespDto> update(@RequestBody ReqDto dto) throws NotFoundException {
-       return new ResponseEntity<>(baseService.update(dto), HttpStatus.CREATED);
+        return new ResponseEntity<>(baseService.update(dto), HttpStatus.CREATED);
     }
 
     @Override
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<Void> deleteById(@PathVariable(name = "id") Long id) throws NotFoundException {
         baseService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
