@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,7 +31,8 @@ public class BaseService<E extends BaseEntity, RespDto extends BaseDto, ReqDto e
     }
 
     public List<RespDto> findAll() {
-        return baseRepository.findAll().stream().map(baseMapper::entityToRespDto).collect(Collectors.toList());
+        return baseRepository.findByDeleted(false).orElse(Collections.emptyList()).
+                stream().map(baseMapper::entityToRespDto).collect(Collectors.toList());
     }
 
     public RespDto create(ReqDto dto) {
@@ -45,8 +47,9 @@ public class BaseService<E extends BaseEntity, RespDto extends BaseDto, ReqDto e
     }
 
     public void deleteById(Long id) throws NotFoundException {
-        baseRepository.findById(id).orElseThrow(() -> new NotFoundException("Entity with ID " + id + " not found"));
-        baseRepository.deleteById(id);
+        E entity = baseRepository.findById(id).orElseThrow(() -> new NotFoundException("Entity with ID " + id + " not found"));
+        entity.setDeleted(true);
+        baseRepository.save(entity);
     }
 
     public static void copyNonNullProperties(Object src, Object target) {
