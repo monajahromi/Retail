@@ -76,7 +76,7 @@ public class CurrentAccountService extends AccountService<CurrentAccountEntity, 
             throw runtimeException;
         }
         TransactionRequestDto t = TransactionRequestDto.builder()
-                .account(updated)
+                .account(currentAccountRequestDto)
                 .amount(amount)
                 .operationType(TransactionOperationType.DEPOSIT)
                 .build();
@@ -100,7 +100,7 @@ public class CurrentAccountService extends AccountService<CurrentAccountEntity, 
             throw new RuntimeException(e);
         }
         TransactionRequestDto t = TransactionRequestDto.builder()
-                .account(updated)
+                .account(currentAccountRequestDto)
                 .amount(amount)
                 .operationType(TransactionOperationType.WITHDRAWAL)
                 .build();
