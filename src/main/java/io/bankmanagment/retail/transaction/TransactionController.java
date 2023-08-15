@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/transactions")
-public class TransactionController extends BaseRestController<TransactionEntity, TransactionDto, TransactionDto> {
+public class TransactionController extends BaseRestController<TransactionEntity, TransactionResponseDto, TransactionRequestDto> {
 
 
-    public TransactionController(IBaseService<TransactionEntity, TransactionDto, TransactionDto> baseService) {
+    public TransactionController(IBaseService<TransactionEntity, TransactionResponseDto, TransactionRequestDto> baseService) {
         super(baseService);
     }
 }

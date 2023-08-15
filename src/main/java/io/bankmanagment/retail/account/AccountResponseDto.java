@@ -1,7 +1,7 @@
 package io.bankmanagment.retail.account;
 
 import io.bankmanagment.base.model.dto.BaseDto;
-import io.bankmanagment.retail.transaction.TransactionDto;
+import io.bankmanagment.retail.transaction.TransactionResponseDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,6 +15,6 @@ public class AccountResponseDto extends BaseDto {
     private String number;
     private BigDecimal balance;
     private BigDecimal balanceFloor;
-    private List<TransactionDto> transactions;
+    private List<TransactionResponseDto> transactions;
 
 }

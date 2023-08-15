@@ -7,5 +7,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
 public interface CurrentAccountMapper extends AccountMapper<CurrentAccountEntity, CurrentAccountResponseDto, CurrentAccountRequestDto> {
-
+    CurrentAccountRequestDto responseToRequest(CurrentAccountResponseDto responseDto);
 }

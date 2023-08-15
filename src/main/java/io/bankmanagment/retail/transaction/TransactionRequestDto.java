@@ -1,6 +1,7 @@
 package io.bankmanagment.retail.transaction;
 
 import io.bankmanagment.base.model.dto.BaseDto;
+import io.bankmanagment.retail.account.AccountResponseDto;
 import io.bankmanagment.retail.constants.TransactionOperationType;
 import lombok.*;
 
@@ -11,8 +12,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TransactionDto extends BaseDto {
+public class TransactionRequestDto extends BaseDto {
 
     private BigDecimal amount;
     private TransactionOperationType operationType;
+    private AccountResponseDto account;
 }
