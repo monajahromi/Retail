@@ -5,7 +5,7 @@ import io.bankmanagment.base.repository.IBaseRepository;
 import io.bankmanagment.base.service.BaseService;
 
 
-public  class AccountService<A extends  AccountEntity, B extends AccountDto, C extends AccountDto> extends BaseService<A,B,C> {
+public  class AccountService<A extends  AccountEntity, B extends AccountResponseDto, C extends AccountRequestDto> extends BaseService<A,B,C> {
     public AccountService(IBaseRepository<A> baseRepository, IBaseMapper<A, B, C> baseMapper) {
         super(baseRepository, baseMapper);
     }
