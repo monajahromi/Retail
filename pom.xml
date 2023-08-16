@@ -10,7 +10,7 @@
     </parent>
     <groupId>io.bankmanagment</groupId>
     <artifactId>Retail</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>Retail</name>
     <description>Retail</description>
     <properties>
