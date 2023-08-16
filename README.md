@@ -51,13 +51,13 @@ cd Retial
 #### Docker Build
 Build the Docker image by running the following command in the terminal:
 ```shell
-docker build -t retail:1.0.0 .
+docker build -t retail:0.0.1 .
 ```
 
 #### Docker Run
 Run the Docker container using the following command:
 ```shell
-docker run --name retail -p 8083:8083 -it -d retail:1.0.0
+docker run --name retail -p 8083:8083 -it -d retail:0.0.1
 ```
 
 This will start the container and expose port 8083 on your local machine.
@@ -66,7 +66,7 @@ allowing you to interact with the container's terminal.
 
 If port 8083 is already in use on your system, you can use an alternate port, such as 8084:
 ```shell
-docker run --name retail -p 8084:8083 -it -d retail:1.0.0
+docker run --name retail -p 8084:8083 -it -d retail:0.0.1
 ```
 
 ## API Documentation
