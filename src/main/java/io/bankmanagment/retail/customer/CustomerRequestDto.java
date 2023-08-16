@@ -12,9 +12,9 @@ import lombok.*;
 @Builder
 public class CustomerRequestDto extends BaseDto {
 
-    @NotBlank(message = "Name cannot be blank")
+    @NotBlank(message = "Name can't be blank")
     private String name;
-    @NotBlank(message = "Surname cannot be blank")
+    @NotBlank(message = "Surname can't be blank")
     private String surname;
     @JsonIgnore
     private String code;
