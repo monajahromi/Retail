@@ -41,7 +41,7 @@ public class BaseRestController<E extends BaseEntity, RespDto extends BaseDto, R
 
     @Override
     @PutMapping
-    public ResponseEntity<RespDto> update(@RequestBody ReqDto dto) throws NotFoundException {
+    public ResponseEntity<RespDto> update(@RequestBody @Valid ReqDto dto) throws NotFoundException {
         return new ResponseEntity<>(baseService.update(dto), HttpStatus.CREATED);
     }
 

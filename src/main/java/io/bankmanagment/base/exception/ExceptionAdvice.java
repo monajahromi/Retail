@@ -30,6 +30,16 @@ public class ExceptionAdvice {
                 );
     }
 
+    @ExceptionHandler(CustomMethodNotAllowedException.class)
+    public ResponseEntity<ExceptionInfo> handleNotFoundException(CustomMethodNotAllowedException exception) {
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
+                .body(ExceptionInfo.builder()
+                        .message(exception.getMessage())
+                        .status(HttpStatus.METHOD_NOT_ALLOWED.value())
+                        .build()
+                );
+    }
+
     @ExceptionHandler(Throwable.class)
     @ResponseBody
     ResponseEntity<ExceptionInfo> handleGeneralException(@NonNull Throwable ex) {
