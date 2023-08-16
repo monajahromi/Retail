@@ -16,7 +16,6 @@ public class AccountRequestDto extends BaseDto {
     private String number;
     @JsonIgnore
     private BigDecimal balance;
-    @JsonIgnore
     private BigDecimal balanceFloor;
     @JsonIgnore
     private CustomerRequestDto customer;
