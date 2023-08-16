@@ -11,6 +11,7 @@ This document contains:
 - Project Structure
 - Getting Started
 - API Documentation
+- Testing with Postman
 
 
 ## Project Structure:
@@ -74,3 +75,9 @@ You can explore and interact with the API endpoints using the Swagger UI:
 
 - Swagger UI: [http://localhost:8083/swagger-ui/index.html](http://localhost:8083/swagger-ui/index.html)
 - API Documentation JSON: [http://localhost:8083/v3/api-docs](http://localhost:8083/v3/api-docs)
+
+
+## Testing with Postman
+
+Access Postman Collection and Workspace:
+https://www.postman.com/crimson-moon-938196/workspace/account-management/overview
