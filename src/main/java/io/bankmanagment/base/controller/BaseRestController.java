@@ -23,7 +23,7 @@ public class BaseRestController<E extends BaseEntity, RespDto extends BaseDto, R
 
     @Override
     @GetMapping("{id}")
-    public ResponseEntity<RespDto> findBydId(@PathVariable(name = "id") Long id) throws NotFoundException {
+    public ResponseEntity<RespDto> findById(@PathVariable(name = "id") Long id) throws NotFoundException {
         return new ResponseEntity<>(baseService.findById(id), HttpStatus.OK);
     }
 
@@ -42,7 +42,7 @@ public class BaseRestController<E extends BaseEntity, RespDto extends BaseDto, R
     @Override
     @PutMapping
     public ResponseEntity<RespDto> update(@RequestBody ReqDto dto) throws NotFoundException {
-        return new ResponseEntity<>(baseService.update(dto), HttpStatus.CREATED);
+        return new ResponseEntity<>(baseService.update(dto), HttpStatus.OK);
     }
 
     @Override

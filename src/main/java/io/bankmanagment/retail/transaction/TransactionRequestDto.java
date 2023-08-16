@@ -1,7 +1,7 @@
 package io.bankmanagment.retail.transaction;
 
 import io.bankmanagment.base.model.dto.BaseDto;
-import io.bankmanagment.retail.account.AccountResponseDto;
+import io.bankmanagment.retail.account.AccountRequestDto;
 import io.bankmanagment.retail.constants.TransactionOperationType;
 import lombok.*;
 
@@ -16,5 +16,5 @@ public class TransactionRequestDto extends BaseDto {
 
     private BigDecimal amount;
     private TransactionOperationType operationType;
-    private AccountResponseDto account;
+    private AccountRequestDto account;
 }
