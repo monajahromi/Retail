@@ -2,12 +2,12 @@
 Current Account Management System
 
 
-Overview
+### Overview
 Welcome to Current Account Management System! 
-This project aims to create account and specially current account management.
+This project aims to create account, specially current account management.
 It is built using Spring boot, Spring mvc, Hibernate.
 
-### Base Package
+## Base Package
 The Base Package forms the bedrock of our project's architecture, providing a standardized and efficient foundation for various components. Designed to enhance code reusability, maintainability, and consistency, the base package includes several essential modules that shape the core of our application's development.
 
 ### Account Package
@@ -30,7 +30,7 @@ Project Description
 Follow these steps to get the project up and running on your local machine:
 
 Step 1: Clone the repository
-Step 2: Configure the environment
+Step 2: Installation
 Step 3: Run the application
 
 
@@ -40,9 +40,40 @@ git clone https://github.com/monajahromi/Retail.git
 cd Retial
 ```
 
-Step 2: Configure the Environment
+Step 2: Installation
+
+### Docker
+
+1. Build the Docker image by running the following command in the terminal:
+```shell
+docker build -t retail:1.0.0 .
+```
 
 Step 3: Run the Application
+Run the Docker container using the following command:
+
+```shell
+docker run --name retail -p 8083:8083 -d retail:1.0.0
+
+```
+
+This will start the container and expose port 8083 on your local machine.
+The -d flag detaches the container, 
+and the -it flag enables interactive mode,
+allowing you to interact with the container's terminal.
+
+If port 8083 is already in use on your system, you can use an alternate port, such as 8084:
+```shell
+docker run --name retail -p 8084:8083 -it -d retail:1.0.0
+
+```
 
 API Documentation
+You can explore and interact with the API endpoints using the Swagger UI:
+
+
+- Swagger UI: [http://localhost:8083/swagger-ui/index.html](http://localhost:8083/swagger-ui/index.html)
+- API Documentation JSON: [http://localhost:8083/v3/api-docs](http://localhost:8083/v3/api-docs)
+
+The Swagger UI provides an interactive interface to view, test, and interact with the API endpoints, while the API Documentation JSON endpoint provides the OpenAPI specification in JSON format.
 
