@@ -10,6 +10,7 @@ It's built using Spring Boot, Spring MVC, and Hibernate.
 This document contains:
 - Project Structure
 - Getting Started
+- Docker Image on Docker Hub
 - API Documentation
 - Testing with Postman
 
@@ -69,6 +70,20 @@ If port 8083 is already in use on your system, you can use an alternate port, su
 docker run --name retail -p 8084:8083 -it -d retail:0.0.1
 ```
 
+## Docker Image on Docker Hub
+1. Run the following command to pull the Docker image:
+
+```shell
+docker pull  monajahromi/retail:0.0.1 
+```
+
+2. After the image is pulled, you can run the application using the following command:
+
+```shell
+docker run --name retail -p 8083:8083 -it -d monajahromi/retail:0.0.1 
+```
+
+
 ## API Documentation
 You can explore and interact with the API endpoints using the Swagger UI:
 
@@ -81,3 +96,4 @@ You can explore and interact with the API endpoints using the Swagger UI:
 
 Access Postman Collection and Workspace:
 https://www.postman.com/crimson-moon-938196/workspace/account-management/overview
+
